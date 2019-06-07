@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="weather-app"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<properties>
+			<property name="hibernate.connection.provider_class"
+				value="org.hibernate.c3p0.internal.C3P0ConnectionProvider" />
+
+			<property name="
+		hibernate.dialect " value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:postgresql://localhost:5432/weather_db" />
+			<property name="javax.persistence.jdbc.user" value="postgres" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.schema-generation.database.action"
+				value="update" />
+			<property name="hibernate.connection.release_mode" value="auto" />
+			<property name="javax.persistence.jdbc.password" value="password" />
+			<property name="hibernate.connection.pool_size" value="200" />
+
+			<property name="hibernate.c3p0.max_size" value="1000" />
+			<property name="hibernate.c3p0.min_size" value="0" />
+			<property name="hibernate.c3p0.timeout" value="5" />
+			<property name="maxIdleTime" value="5" />
+
+		</properties>
+	</persistence-unit>
+</persistence>
