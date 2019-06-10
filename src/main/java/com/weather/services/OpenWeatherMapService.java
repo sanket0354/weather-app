@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.weather.constants.ServiceConstants;
 import com.weather.model.Location;
 import com.weather.model.WeatherLog.SourceType;
 import com.weather.model.WeatherLog;
@@ -12,8 +13,8 @@ import com.weather.model.WeatherLog;
 public class OpenWeatherMapService extends WeatherService {
 
 	public OpenWeatherMapService() {
-		super.url = "http://api.openweathermap.org/data/2.5/weather?lat={LATITUDE}&lon={LONGITUDE}&appId={API_KEY}&units=metric";
-		super.apiuxSecretKey = "386d6fad9fad06c56d0ed4e67bb36f3c";
+		super.url = ServiceConstants.OPEN_WEATHER_MAP_URL;
+		super.apiKey = ServiceConstants.OPEN_WEATHER_MAP_API_KEY;
 	}
 
 	public OpenWeatherMapService(Location location) {

@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.weather.constants.ServiceConstants;
 import com.weather.model.Location;
 import com.weather.model.WeatherLog.SourceType;
 import com.weather.model.WeatherLog;
@@ -12,8 +13,8 @@ import com.weather.model.WeatherLog;
 public class ApiuxWeatherService extends WeatherService {
 
 	public ApiuxWeatherService() {
-		super.url = "http://api.apixu.com/v1/current.json?key={API_KEY}&q={LATITUDE},{LONGITUDE}";
-		super.apiuxSecretKey = "e3269e9700b749959dd184144190606";
+		super.url = ServiceConstants.APIUX_URL;
+		super.apiKey = ServiceConstants.APIUX_API_KEY;
 	}
 
 	public ApiuxWeatherService(Location location) {

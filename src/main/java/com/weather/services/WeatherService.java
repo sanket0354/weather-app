@@ -17,7 +17,7 @@ public class WeatherService {
 
 	protected String url;
 	protected Location location;
-	protected String apiuxSecretKey;
+	protected String apiKey;
 
 	protected static String readAll(Reader rd) throws IOException {
 		StringBuilder sb = new StringBuilder();
@@ -47,7 +47,7 @@ public class WeatherService {
 	}
 
 	protected String constructUrl() {
-		return url.replace("{API_KEY}", apiuxSecretKey).replace("{LATITUDE}", String.valueOf(location.getLatitude()))
+		return url.replace("{API_KEY}", apiKey).replace("{LATITUDE}", String.valueOf(location.getLatitude()))
 				.replace("{LONGITUDE}", String.valueOf(location.getLongitude()));
 	}
 

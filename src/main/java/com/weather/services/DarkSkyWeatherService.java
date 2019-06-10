@@ -22,8 +22,8 @@ import tk.plogitech.darksky.forecast.model.Longitude;
 public class DarkSkyWeatherService extends WeatherService {
 
 	public DarkSkyWeatherService() {
-		super.url = "https://api.darksky.net/forecast/{API_KEY}/{LATITUDE},{LONGITUDE}?units=si&exclude=minutely,hourly,daily,alerts,flags";
-		super.apiuxSecretKey = "080bbcfe5e94c9c33a0f763255d1fabf";
+		super.url = ServiceConstants.DARK_SKY_URL;
+		super.apiKey = ServiceConstants.DARK_SKY_API_KEY;
 
 	}
 
