@@ -1,8 +1,11 @@
 $(document).ready(function() {
 	attachEventHandlers();
-
 });
 
+/**
+ * attach the event handlers needed to handle the client events
+ * 
+ */
 function attachEventHandlers() {
 	$("#city-name").keypress(function(event) {
 
@@ -18,6 +21,14 @@ function attachEventHandlers() {
 	});
 }
 
+/**
+ * This function creates the typeahead for the location that user is searching.
+ * Makes a call to an api that gives city name based on the user search and then
+ * populates the results in the typeahead
+ * 
+ * @param event
+ *            the type event
+ */
 function searchCities(event) {
 	var url = "https://api.teleport.org/api/cities/?search="
 			+ event.target.value;
@@ -48,18 +59,21 @@ function searchCities(event) {
 
 }
 
+/*
+ * select the city and get the weather
+ */
 function selectCity(event) {
-	console.log(">>> Select City")
 	$('#city-name').val($(event.target).text());
-
 	$(".list-group").empty();
-
 	$(".source-hidden").empty().hide();
-
 	getWeather($(event.target).text(), false);
 
 }
 
+/*
+ * make call to the servelet on the server to get the json response to populate
+ * the weather
+ */
 function getWeather(selectedOption, refresh) {
 	options = selectedOption.split(',');
 	$.ajax({
@@ -78,6 +92,9 @@ function getWeather(selectedOption, refresh) {
 	});
 }
 
+/*
+ * populate weather cards by parsing the JSON
+ */
 function populateWeatherCards(weatherData, location) {
 	apiuxData = weatherData['apiux-data']
 	darkSkyData = weatherData['dark-sky-data']
@@ -144,6 +161,9 @@ function getCard(temerature, wind, condition, location, lastUpdated, icon) {
 
 }
 
+/*
+ * Force fetch from the weather service
+ */
 function refresh(event) {
 	var city = $(event.target).data("city");
 	$('#city-name').val(city);
