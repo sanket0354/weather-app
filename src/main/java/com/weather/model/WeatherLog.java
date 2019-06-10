@@ -56,7 +56,7 @@ public class WeatherLog {
 
 	}
 
-	public WeatherLog(double temperature, double windSpeed, String conditionType, Location location, Source source) {
+	public WeatherLog(double temperature, double windSpeed, String conditionType, Location location, SourceType source) {
 		this.temperature = temperature;
 		this.windSpeed = windSpeed;
 		this.conditionType = conditionType;
@@ -190,12 +190,40 @@ public class WeatherLog {
 		return serialVersionUID;
 	}
 
-	public Source getSource() {
-		return Source.parse(this.sourceId);
+	public SourceType getSource() {
+		return SourceType.parse(this.sourceId);
 	}
 
-	public void setRight(Source source) {
+	public void setRight(SourceType source) {
 		this.sourceId = source.getValue();
 	}
+	
+	public enum SourceType {
+
+		SOURCE1(1), SOURCE2(2), SOURCE3(3);
+
+		private int value;
+
+		SourceType(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		public static SourceType parse(int id) {
+			SourceType right = null; // Default
+			for (SourceType item : SourceType.values()) {
+				if (item.getValue() == id) {
+					right = item;
+					break;
+				}
+			}
+			return right;
+		}
+
+	}
+
 
 }

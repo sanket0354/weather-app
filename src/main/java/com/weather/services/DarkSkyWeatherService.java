@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import com.weather.constants.ServiceConstants;
 import com.weather.model.Location;
-import com.weather.model.Source;
+import com.weather.model.WeatherLog.SourceType;
 import com.weather.model.WeatherLog;
 
 import tk.plogitech.darksky.forecast.APIKey;
@@ -43,7 +43,7 @@ public class DarkSkyWeatherService extends WeatherService {
 			double windSpeed = currentWeather.getDouble("windGust");
 			String condition = currentWeather.getString("summary");
 
-			weatherLog = new WeatherLog(temperature, windSpeed, condition, location, Source.SOURCE2);
+			weatherLog = new WeatherLog(temperature, windSpeed, condition, location, SourceType.SOURCE2);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.weather.model.Location;
-import com.weather.model.Source;
+import com.weather.model.WeatherLog.SourceType;
 import com.weather.model.WeatherLog;
 
 public class ApiuxWeatherService extends WeatherService {
@@ -31,7 +31,7 @@ public class ApiuxWeatherService extends WeatherService {
 			double windSpeed = currentWeather.getDouble("wind_kph");
 			String condition = currentWeather.getJSONObject("condition").getString("text");
 
-			weatherLog = new WeatherLog(temperature, windSpeed, condition, location, Source.SOURCE1);
+			weatherLog = new WeatherLog(temperature, windSpeed, condition, location, SourceType.SOURCE1);
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

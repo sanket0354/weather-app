@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.weather.model.Location;
-import com.weather.model.Source;
+import com.weather.model.WeatherLog.SourceType;
 import com.weather.model.WeatherLog;
 import com.weather.modelController.LocationController;
 import com.weather.modelController.WeatherLogController;
@@ -79,11 +79,11 @@ public class WeatherServlet extends HttpServlet {
 		} else {
 			System.out.println("Db Location is not null");
 			WeatherLog retrivedLog1 = weatherLogController.findLastLogBasedOnLocationAndSourceAndDate(dbLocation,
-					Source.SOURCE1);
+					SourceType.SOURCE1);
 			WeatherLog retrivedLog2 = weatherLogController.findLastLogBasedOnLocationAndSourceAndDate(dbLocation,
-					Source.SOURCE2);
+					SourceType.SOURCE2);
 			WeatherLog retrivedLog3 = weatherLogController.findLastLogBasedOnLocationAndSourceAndDate(dbLocation,
-					Source.SOURCE3);
+					SourceType.SOURCE3);
 
 			WeatherLog firstSource = null;
 			WeatherLog secondSource = null;

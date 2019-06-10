@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.weather.model.Location;
-import com.weather.model.Source;
+import com.weather.model.WeatherLog.SourceType;
 import com.weather.model.WeatherLog;
 
 public class OpenWeatherMapService extends WeatherService {
@@ -31,7 +31,7 @@ public class OpenWeatherMapService extends WeatherService {
 			double windSpeed = jsonObject.getJSONObject("wind").getDouble("speed");
 			String condition = jsonObject.getJSONArray("weather").getJSONObject(0).getString("main");
 
-			weatherLog = new WeatherLog(temperature, windSpeed, condition, location, Source.SOURCE3);
+			weatherLog = new WeatherLog(temperature, windSpeed, condition, location, SourceType.SOURCE3);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
