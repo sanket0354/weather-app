@@ -12,13 +12,13 @@
 			<property name="
 		hibernate.dialect " value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://localhost:5432/weather_db" />
-			<property name="javax.persistence.jdbc.user" value="postgres" />
+				value="jdbc:postgresql://weather-app.c5xcz0fsnief.ca-central-1.rds.amazonaws.com:5432/weatherappdb" />
+			<property name="javax.persistence.jdbc.user" value="weatherapp" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.schema-generation.database.action"
 				value="update" />
 			<property name="hibernate.connection.release_mode" value="auto" />
-			<property name="javax.persistence.jdbc.password" value="password" />
+			<property name="javax.persistence.jdbc.password" value="Weatherapp!" />
 			<property name="hibernate.connection.pool_size" value="200" />
 
 			<property name="hibernate.c3p0.max_size" value="1000" />
