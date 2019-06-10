@@ -8,6 +8,11 @@ import javax.persistence.EntityManagerFactory;
 import com.weather.model.Location;
 import com.weather.utilities.EntityManagerFactoryManager;
 
+/**
+ * The LocationController class would control database transaction for the Location model
+ * @author Sanket.Patel
+ *
+ */
 public class LocationController {
 	private EntityManagerFactory entityManagerFactory;
 

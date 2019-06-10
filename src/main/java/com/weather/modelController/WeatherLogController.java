@@ -10,6 +10,13 @@ import com.weather.model.WeatherLog;
 import com.weather.model.WeatherLog.SourceType;
 import com.weather.utilities.EntityManagerFactoryManager;
 
+/**
+ * The WeatherLogController class would control database transaction for the
+ * WeatherLog model
+ * 
+ * @author Sanket.Patel
+ *
+ */
 public class WeatherLogController {
 	private EntityManagerFactory entityManagerFactory;
 
@@ -17,6 +24,16 @@ public class WeatherLogController {
 		entityManagerFactory = EntityManagerFactoryManager.getEntityManagerFactory();
 	}
 
+	/**
+	 * Add a new weather log fetched from the api
+	 * 
+	 * @param temperature   the current temperature of the location
+	 * @param windSpeed     the current windspeed of the location
+	 * @param conditionType the current condition type of the the location
+	 * @param location      the location to add log for
+	 * @param source        the api source from which the data is coming from
+	 * @return the WeatherLog object added to the database
+	 */
 	public WeatherLog addLog(double temperature, double windSpeed, String conditionType, Location location,
 			SourceType source) {
 		WeatherLog weatherLog = new WeatherLog(temperature, windSpeed, conditionType, location, source);
@@ -31,6 +48,12 @@ public class WeatherLogController {
 
 	}
 
+	/**
+	 * Add a new weather log based on the WeatherLog object passed as an parameter
+	 * 
+	 * @param weatherLog the log to add
+	 * @return the loged added to the database
+	 */
 	public WeatherLog addLog(WeatherLog weatherLog) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -42,6 +65,13 @@ public class WeatherLogController {
 
 	}
 
+	/**
+	 * Find a WeatherLog based on the location and the source id from the database
+	 * 
+	 * @param location the location for which the logs need to be retrieved
+	 * @param source   the api source that will correspond the location
+	 * @return the WeatherLog fetched from the database
+	 */
 	public WeatherLog findLastLogBasedOnLocationAndSourceAndDate(Location location, SourceType source) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		WeatherLog weatherLog = (WeatherLog) entityManager

@@ -19,6 +19,13 @@ import tk.plogitech.darksky.forecast.GeoCoordinates;
 import tk.plogitech.darksky.forecast.model.Latitude;
 import tk.plogitech.darksky.forecast.model.Longitude;
 
+/**
+ * class extends the WeatherService class to implement reading of data from Dark
+ * Sky Weather api
+ * 
+ * @author Sanket.Patel
+ *
+ */
 public class DarkSkyWeatherService extends WeatherService {
 
 	public DarkSkyWeatherService() {
@@ -32,6 +39,10 @@ public class DarkSkyWeatherService extends WeatherService {
 		super.location = location;
 	}
 
+	/**
+	 * construct a WeatherLog object from the json data read from the API
+	 * @return Weather log object
+	 */
 	public WeatherLog constructWeatherLog() {
 		WeatherLog weatherLog = null;
 

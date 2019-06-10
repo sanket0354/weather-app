@@ -10,6 +10,13 @@ import com.weather.model.Location;
 import com.weather.model.WeatherLog.SourceType;
 import com.weather.model.WeatherLog;
 
+/**
+ * class extends the WeatherService class to implement reading of data from Open
+ * Weather api
+ * 
+ * @author Sanket.Patel
+ *
+ */
 public class OpenWeatherMapService extends WeatherService {
 
 	public OpenWeatherMapService() {
@@ -22,6 +29,10 @@ public class OpenWeatherMapService extends WeatherService {
 		super.location = location;
 	}
 
+	/**
+	 * construct a WeatherLog object from the json data read from the API
+	 * @return Weather log object
+	 */
 	public WeatherLog constructWeatherLog() {
 		WeatherLog weatherLog = null;
 

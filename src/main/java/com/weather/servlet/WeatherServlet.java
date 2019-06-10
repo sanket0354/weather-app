@@ -31,15 +31,25 @@ public class WeatherServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		/*
+		 * Get the city, province, country from the url parameters to locate the
+		 * longitude and latitude
+		 */
 		String city = request.getParameter("city").toLowerCase();
 		String province = request.getParameter("province").toLowerCase();
 		String country = request.getParameter("country").toLowerCase();
+
+		/*
+		 * get the forceRefresh flag from url parameter. This will be used if the user
+		 * requests the refresh of weather then we will fetch the latest data from api
+		 * 
+		 */
 		boolean forceRefresh = Boolean.parseBoolean(request.getParameter("refresh"));
 
+		// Get the co-ordinates from the google geo code service
 		GeoLocationService geoLocationService = new GeoLocationService(city, province, country);
 		Location location = geoLocationService.getCoOrdinates();
 
-//		System.out.println(location.getLatitude() + " " + location.getLongitude());
 		JSONObject responseJson = processRequest(location, forceRefresh);
 
 		PrintWriter sendResponse = response.getWriter();
@@ -48,18 +58,32 @@ public class WeatherServlet extends HttpServlet {
 
 	}
 
+	/**
+	 * process the user's request and build the JSON object
+	 * 
+	 * @param location     the location requested by user
+	 * @param forceRefresh refresh flag to actually fetch from weather api services
+	 * @return the JSONObject to return to client
+	 */
 	public JSONObject processRequest(Location location, boolean forceRefresh) {
 		LocationController locationController = new LocationController();
 		WeatherLogController weatherLogController = new WeatherLogController();
 
+		// check if the location data was already retrieved today for a particular
+		// co-ordinates
 		Location dbLocation = locationController.findLocation(location.getLongitude(), location.getLatitude());
 
 		ApiuxWeatherService apiuxWeatherService = WeatherServiceManager.getApiuxWeatherService();
 		DarkSkyWeatherService darkSkyWeatherService = WeatherServiceManager.getdarkSkyWeatherService();
 		OpenWeatherMapService openWeatherMapService = WeatherServiceManager.getopenWeatherMapService();
 
+		/**
+		 * if the location is not found in the database or user has requested the latest
+		 * data then contact the api services to pull in the latest information else if
+		 * the data is found in the database then return that to the user to minimize
+		 * the api calls
+		 */
 		if (dbLocation == null || forceRefresh) {
-			System.out.println("Db Location is null");
 			dbLocation = locationController.addLocation(location.getLongitude(), location.getLatitude());
 
 			apiuxWeatherService.setLocation(dbLocation);
@@ -77,7 +101,6 @@ public class WeatherServlet extends HttpServlet {
 			return mergeJson(firstSource, secondSource, thirdSource);
 
 		} else {
-			System.out.println("Db Location is not null");
 			WeatherLog retrivedLog1 = weatherLogController.findLastLogBasedOnLocationAndSourceAndDate(dbLocation,
 					SourceType.SOURCE1);
 			WeatherLog retrivedLog2 = weatherLogController.findLastLogBasedOnLocationAndSourceAndDate(dbLocation,
@@ -90,32 +113,26 @@ public class WeatherServlet extends HttpServlet {
 			WeatherLog thirdSource = null;
 
 			if (retrivedLog1 == null) {
-				System.out.println("retrieved1 log is null");
 				apiuxWeatherService.setLocation(dbLocation);
 				firstSource = apiuxWeatherService.constructWeatherLog();
 				weatherLogController.addLog(firstSource);
 			} else {
-				System.out.println("retrieved1 log is not null");
 				firstSource = retrivedLog1;
 			}
 
 			if (retrivedLog2 == null) {
-				System.out.println("retrieved2 log is null");
 				darkSkyWeatherService.setLocation(dbLocation);
 				secondSource = darkSkyWeatherService.constructWeatherLog();
 				weatherLogController.addLog(secondSource);
 			} else {
-				System.out.println("retrieved2 log is not null");
 				secondSource = retrivedLog2;
 			}
 
 			if (retrivedLog3 == null) {
-				System.out.println("retrieved3 log is null");
 				openWeatherMapService.setLocation(dbLocation);
 				thirdSource = openWeatherMapService.constructWeatherLog();
 				weatherLogController.addLog(thirdSource);
 			} else {
-				System.out.println("retrieved3 log is not null");
 				thirdSource = retrivedLog3;
 			}
 
@@ -125,13 +142,21 @@ public class WeatherServlet extends HttpServlet {
 
 	}
 
+	/**
+	 * Merge multiple json object from three api services
+	 * 
+	 * @param firstLog  weather log from first source
+	 * @param secondLog weather log from second source
+	 * @param thirdLog  weather log from third source
+	 * @return json object created from the three log
+	 */
 	public JSONObject mergeJson(WeatherLog firstLog, WeatherLog secondLog, WeatherLog thirdLog) {
 		JSONObject weatherObj = new JSONObject();
-		
+
 		weatherObj.put("apiux-data", firstLog.toJson());
 		weatherObj.put("dark-sky-data", secondLog.toJson());
 		weatherObj.put("open-weather-data", thirdLog.toJson());
-		
+
 		return weatherObj;
 
 	}

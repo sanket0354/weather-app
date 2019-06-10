@@ -2,6 +2,14 @@ package com.weather.utilities;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * this is just a helper class created for presentation/demo purpose which if
+ * sees some keywords in the weather condition retrieved from the api services
+ * then adds a particular icon to display on the front-end
+ * 
+ * @author Sanket.Patel
+ *
+ */
 public class IconManager {
 
 	public static String getIcon(String condition) {
