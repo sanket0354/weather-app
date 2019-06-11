@@ -40,8 +40,9 @@ public class WeatherServlet extends HttpServlet {
 		String country = request.getParameter("country").toLowerCase();
 
 		/*
-		 * get the forceRefresh flag from url parameter. This will be used if the user
-		 * requests the refresh of weather then we will fetch the latest data from api
+		 * get the forceRefresh flag from url parameter. This will be used if
+		 * the user requests the refresh of weather then we will fetch the
+		 * latest data from api
 		 * 
 		 */
 		boolean forceRefresh = Boolean.parseBoolean(request.getParameter("refresh"));
@@ -61,15 +62,18 @@ public class WeatherServlet extends HttpServlet {
 	/**
 	 * process the user's request and build the JSON object
 	 * 
-	 * @param location     the location requested by user
-	 * @param forceRefresh refresh flag to actually fetch from weather api services
+	 * @param location
+	 *            the location requested by user
+	 * @param forceRefresh
+	 *            refresh flag to actually fetch from weather api services
 	 * @return the JSONObject to return to client
 	 */
 	public JSONObject processRequest(Location location, boolean forceRefresh) {
 		LocationController locationController = new LocationController();
 		WeatherLogController weatherLogController = new WeatherLogController();
 
-		// check if the location data was already retrieved today for a particular
+		// check if the location data was already retrieved today for a
+		// particular
 		// co-ordinates
 		Location dbLocation = locationController.findLocation(location.getLongitude(), location.getLatitude());
 
@@ -78,13 +82,15 @@ public class WeatherServlet extends HttpServlet {
 		OpenWeatherMapService openWeatherMapService = WeatherServiceManager.getopenWeatherMapService();
 
 		/**
-		 * if the location is not found in the database or user has requested the latest
-		 * data then contact the api services to pull in the latest information else if
-		 * the data is found in the database then return that to the user to minimize
-		 * the api calls
+		 * if the location is not found in the database or user has requested
+		 * the latest data then contact the api services to pull in the latest
+		 * information else if the data is found in the database then return
+		 * that to the user to minimize the api calls
 		 */
 		if (dbLocation == null || forceRefresh) {
-			dbLocation = locationController.addLocation(location.getLongitude(), location.getLatitude());
+			if (dbLocation == null) {
+				dbLocation = locationController.addLocation(location.getLongitude(), location.getLatitude());
+			}
 
 			apiuxWeatherService.setLocation(dbLocation);
 			darkSkyWeatherService.setLocation(dbLocation);
@@ -145,9 +151,12 @@ public class WeatherServlet extends HttpServlet {
 	/**
 	 * Merge multiple json object from three api services
 	 * 
-	 * @param firstLog  weather log from first source
-	 * @param secondLog weather log from second source
-	 * @param thirdLog  weather log from third source
+	 * @param firstLog
+	 *            weather log from first source
+	 * @param secondLog
+	 *            weather log from second source
+	 * @param thirdLog
+	 *            weather log from third source
 	 * @return json object created from the three log
 	 */
 	public JSONObject mergeJson(WeatherLog firstLog, WeatherLog secondLog, WeatherLog thirdLog) {

@@ -21,6 +21,7 @@ public class LocationController {
 	}
 
 	public Location addLocation(double longitude, double latitude) {
+		System.out.println("AADDD location");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 		Location location = new Location(longitude, latitude);
