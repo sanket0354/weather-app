@@ -153,7 +153,7 @@ function getCard(temerature, wind, condition, location, lastUpdated, icon) {
 	<div class="weather-last-updated-div">\
 	<span>Last Updated: '
 			+ lastUpdated
-			+ '  <a class="refresh-weather" data-city="'
+			+ '  UTC <a class="refresh-weather" data-city="'
 			+ location + '">Referesh</a></span>\
 	</div>\
 	</div>\
