@@ -74,7 +74,6 @@ public class WeatherLog {
 		weatherJson.put("condition", this.conditionType);
 		weatherJson.put("last-updated", this.lastUpdated.format(formatter));
 		weatherJson.put("icon", IconManager.getIcon(this.conditionType));
-		System.out.println(weatherJson);
 		return weatherJson;
 	}
 

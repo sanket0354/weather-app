@@ -14,7 +14,6 @@ public class IconManager {
 
 	public static String getIcon(String condition) {
 
-		System.out.println(condition);
 		if (StringUtils.containsIgnoreCase(condition, "rain") || StringUtils.containsIgnoreCase(condition, "drizzle")
 				|| StringUtils.containsIgnoreCase(condition, "sprinkle")) {
 			return "wi-rain";

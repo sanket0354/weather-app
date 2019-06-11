@@ -20,7 +20,6 @@ public class InitializationServlet extends HttpServlet {
 	 *  - intialize the weather service
 	 */
 	public void init() throws ServletException {
-		System.out.println("Creating entity Manager Factory");
 		EntityManagerFactoryManager.getEntityManagerFactory();
 		WeatherServiceManager.initializeWeatherService();
 	}
@@ -29,7 +28,6 @@ public class InitializationServlet extends HttpServlet {
 	 * close any resources as possible
 	 */
 	public void destroy() {
-		System.out.println("Destroying the Entity Manager Factory...");
 		EntityManagerFactoryManager.getEntityManagerFactory().close();
 	}
 

@@ -82,8 +82,6 @@ public class WeatherLogController {
 			return null;
 		}
 
-		System.out.println(weatherLog.getLastUpdated().toLocalDate().toString());
-		System.out.println(LocalDate.now().toString());
 		if (weatherLog.getLastUpdated().toLocalDate().equals(LocalDate.now())) {
 			return weatherLog;
 		}
